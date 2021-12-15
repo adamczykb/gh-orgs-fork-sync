@@ -31,16 +31,16 @@ for repo in response.json():
         if not os.path.exists('./'+repo["name"]):
             subprocess.call(["git", "clone", "https://"+sys.argv[1].replace('@', '%40')+":" +
                             sys.argv[2]+"@github.com/" + sys.argv[3] + "/" + repo["name"]], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        
+
         os.chdir('./'+repo["name"])
         subprocess.call(["git", "pull", "https://"+sys.argv[1].replace('@', '%40') +
-                        ":"+sys.argv[2]+"@"+current_repo["url"].replace("https://", "")], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+                        ":"+sys.argv[2]+"@"+current_repo["url"].replace("https://", ""), current_repo["branch"]], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         subprocess.call(["git", "push", "https://" + sys.argv[1].replace('@', '%40') +
                         ":"+sys.argv[2]+"@github.com/"+sys.argv[3]+"/" + repo["name"]], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         os.chdir('..')
         print("\U00002705 "+sys.argv[3]+"/"+repo["name"] + " has been updated with upstream " +
               current_repo["url"], end="\n")
-              
+
     except(Exception):
         print("\U0000274C "+sys.argv[3]+"/"+repo["name"] + " has not been updated with upstream " +
               current_repo["url"], end="\n")
