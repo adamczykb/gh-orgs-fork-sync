@@ -11,9 +11,9 @@ argv[2] => github_user_token
 argv[3] => github_org
 '''
 if len(sys.argv) < 4:
-    raise Exception("To few arguments")
+    raise Exception("Too few arguments")
 if len(sys.argv) > 4:
-    raise Exception("To many arguments")
+    raise Exception("Too many arguments")
 
 response = requests.get("https://api.github.com/orgs/" +
                         sys.argv[3]+"/repos?type=forked", auth=HTTPBasicAuth(sys.argv[1], sys.argv[2]), headers={"accept": "application/vnd.github.v3+json"})
